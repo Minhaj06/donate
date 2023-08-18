@@ -1,17 +1,16 @@
-import { useState } from "react";
-import "./App.css";
+import React from "react";
+import Header from "./components/header/Header";
+import { Outlet } from "react-router-dom";
+import Footer from "./components/footer/Footer";
 
-function App() {
-  const [count, setCount] = useState(0);
-
+const App = () => {
   return (
     <>
-      <div className="container">
-        <h1 className="text-6xl text-amber-600">Hello</h1>
-        <button className="btn btn-secondary capitalize text-lg">Click Me</button>
-      </div>
+      <Header />
+      <Outlet />
+      <Footer />
     </>
   );
-}
+};
 
 export default App;

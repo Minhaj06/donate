@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  // important: true,
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
@@ -18,7 +19,7 @@ export default {
     themes: [
       {
         mytheme: {
-          primary: "#2563EB",
+          primary: "#198f51",
           secondary: "#f000b8",
           accent: "#ff7101",
           neutral: "#2b3440",
