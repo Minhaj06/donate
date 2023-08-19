@@ -145,9 +145,9 @@ const CompletedDonationsPage = () => {
               <option disabled selected>
                 Mode
               </option>
-              <option>Company</option>
-              <option>Public</option>
-              <option>Volunteer</option>
+              <option>Normal</option>
+              <option>Medium</option>
+              <option>Emergency</option>
             </select>
           </div>
 
