@@ -1,10 +1,9 @@
 import React from "react";
-import SectionTitle from "../../components/sectionTitle/SectionTitle";
 import USA from "../../assets/images/usa-flag.jpg";
 import UK from "../../assets/images/uk-flag.jpg";
 import DonationImage from "../../assets/images/donation-image.png";
-import { Link } from "react-router-dom";
 import CompletedDonationCard from "../../components/cards/CompletedDonationCard";
+import SectionTitle from "../../components/sectionTitle/SectionTitle";
 
 const CompletedDonationsData = [
   {
@@ -97,11 +96,11 @@ const CompletedDonationsData = [
   },
 ];
 
-const CompletedDonations = () => {
+const CompletedDonationsPage = () => {
   return (
     <section className="py-20 bg-success">
       <div className="container">
-        <SectionTitle className="text-white" title="Completed Donations" />
+        <div>Page Header</div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {CompletedDonationsData.map((donation) => {
@@ -121,4 +120,4 @@ const CompletedDonations = () => {
   );
 };
 
-export default CompletedDonations;
+export default CompletedDonationsPage;

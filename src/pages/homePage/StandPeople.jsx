@@ -24,7 +24,7 @@ const data = [
 
 const StandPeople = () => {
   return (
-    <section className="py-20 text-white">
+    <section className="py-20 bg-success text-white">
       <div className="container">
         <SectionTitle title="Let's stand by the helpless people" />
 

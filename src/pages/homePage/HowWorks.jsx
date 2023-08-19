@@ -29,7 +29,7 @@ const howItWorksData = [
 
 const HowWorks = () => {
   return (
-    <section className="py-20 bg-success">
+    <section className="py-20">
       <div className="container">
         <SectionTitle title="How It Works" />
 
