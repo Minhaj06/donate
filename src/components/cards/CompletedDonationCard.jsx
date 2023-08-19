@@ -1,4 +1,5 @@
 import React from "react";
+import { BsFillHeartFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
 const CompletedDonationCard = ({ donation, raisedPercentage }) => {
@@ -30,19 +31,30 @@ const CompletedDonationCard = ({ donation, raisedPercentage }) => {
 
       <div className="p-5">
         <h3 className="uppercase font-semibold">You can donate various goods for citizens</h3>
+
         <div className="relative">
           <div
+            className="text-[10px] text-center pt-[2px] absolute top-0"
             style={{
-              left: `calc(${raisedPercentage > 0 ? 100 : raisedPercentage}% - 18px)`,
-              clipPath: "polygon(100% 0, 100% 60%, 60% 60%, 51% 80%, 40% 60%, 0 60%, 0 0)",
+              left: `calc(100% - 17px)`,
             }}
-            className="w-8 h-8 text-xs text-center pt-[2px] bg-primary text-white absolute top-0"
           >
-            {raisedPercentage}%
+            {/* Circle */}
+            <span className="absolute top-8 left-2 w-4 h-4 rounded-full bg-primary z-10"></span>
+
+            {/* Heart */}
+            <span>
+              <BsFillHeartFill size={32} color="#dd0d0d" />
+            </span>
+
+            {/* Percentage */}
+            <span className="absolute top-[5px] left-0 w-full h-full flex justify-center text-white">
+              100%
+            </span>
           </div>
 
           <progress
-            className="progress bg-gray-400 progress-primary w-full mt-8 mb-3"
+            className="progress bg-gray-500 progress-success w-full mt-9 mb-3"
             value={raisedPercentage}
             max="100"
           ></progress>
@@ -52,10 +64,10 @@ const CompletedDonationCard = ({ donation, raisedPercentage }) => {
           <div>
             Raised: <span className="text-primary">${donation.raised}</span>
           </div>
-          <div className="shrink-0">
-            <button className="btn btn-xs btn-outline cursor-default">53 days ago</button>
-          </div>
           <div>
+            <span className="font-semibold whitespace-nowrap">53 days ago</span>
+          </div>
+          <div className="text-end">
             Goal: <span className="text-primary">${donation.goal}</span>
           </div>
         </div>

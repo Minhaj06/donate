@@ -2,10 +2,10 @@ import React from "react";
 import USA from "../../assets/images/usa-flag.jpg";
 import UK from "../../assets/images/uk-flag.jpg";
 import DonationImage from "../../assets/images/donation-image.png";
-import CompletedDonationCard from "../../components/cards/CompletedDonationCard";
+import OngoingDonationCard from "../../components/cards/OngoingDonationCard";
 import { BiChevronsLeft, BiChevronsRight } from "react-icons/bi";
 
-const CompletedDonationsData = [
+const DonationsData = [
   {
     _id: "613a9c256b6eef0015f3e663",
     category: "Education",
@@ -96,7 +96,7 @@ const CompletedDonationsData = [
   },
 ];
 
-const CompletedDonationsPage = () => {
+const DonatePage = () => {
   return (
     <section className="py-20 bg-success">
       <div className="container">
@@ -191,11 +191,11 @@ const CompletedDonationsPage = () => {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {CompletedDonationsData.map((donation) => {
+          {DonationsData.map((donation) => {
             const raisedPercentage = Math.round((donation.raised / donation.goal) * 100);
 
             return (
-              <CompletedDonationCard
+              <OngoingDonationCard
                 key={donation?._id}
                 donation={donation}
                 raisedPercentage={raisedPercentage}
@@ -226,4 +226,4 @@ const CompletedDonationsPage = () => {
   );
 };
 
-export default CompletedDonationsPage;
+export default DonatePage;

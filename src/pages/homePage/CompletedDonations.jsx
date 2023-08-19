@@ -3,7 +3,6 @@ import SectionTitle from "../../components/sectionTitle/SectionTitle";
 import USA from "../../assets/images/usa-flag.jpg";
 import UK from "../../assets/images/uk-flag.jpg";
 import DonationImage from "../../assets/images/donation-image.png";
-import { Link } from "react-router-dom";
 import CompletedDonationCard from "../../components/cards/CompletedDonationCard";
 
 const CompletedDonationsData = [

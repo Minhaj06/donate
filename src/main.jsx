@@ -5,6 +5,7 @@ import App from "./App.jsx";
 import "./index.css";
 import HomePage from "./pages/homePage/HomePage.jsx";
 import CompletedDonationsPage from "./pages/completedDonationsPage/CompletedDonationsPage.jsx";
+import DonatePage from "./pages/donatePage/DonatePage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <HomePage />,
+      },
+      {
+        path: "/donate",
+        element: <DonatePage />,
       },
       {
         path: "/completed-donations",
