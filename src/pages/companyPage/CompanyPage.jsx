@@ -161,12 +161,12 @@ const CompanyPage = () => {
         {/* Table 2 */}
         <SectionTitle title="Volunteers" />
 
-        <div className="mb-6 flex gap-6">
+        <div className="mb-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {/* ID Select */}
           <input
             type="text"
             placeholder="Type ID"
-            className="input input-bordered bg-primary text-white placeholder:text-white input-lg w-full max-w-xs"
+            className="input input-bordered bg-primary text-white placeholder:text-white input-lg w-full"
           />
 
           {/* Country Select */}

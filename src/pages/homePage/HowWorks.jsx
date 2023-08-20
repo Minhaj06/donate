@@ -33,7 +33,7 @@ const HowWorks = () => {
       <div className="container">
         <SectionTitle title="How It Works" />
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-8">
           {howItWorksData.map((item, index) => (
             <div
               className="text-center bg-gray-300 px-4 py-10 shadow-lg rounded-lg border hover:scale-105 duration-300"

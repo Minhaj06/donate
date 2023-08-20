@@ -68,8 +68,8 @@ const Footer = () => {
   return (
     <footer className="py-16 bg-primary text-white">
       <div className="container">
-        <div className="grid sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-4 gap-6 gap-y-10">
-          <div className="sm:col-span-3 md:col-span-1 lg:col-span-2">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 gap-y-10">
+          <div className="sm:col-span-2 lg:col-span-2">
             <h3 className="text-xl font-noto font-bold mb-5">Head office of the company</h3>
             <div className="grid grid-cols-2 gap-8">
               <div>

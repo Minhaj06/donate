@@ -28,7 +28,7 @@ const StandPeople = () => {
       <div className="container">
         <SectionTitle title="Let's stand by the helpless people" />
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 lg:gap-8 mt20">
+        <div className="grid sm:grid-cols-3 gap-6 lg:gap-8 mt20">
           {data.map((item, index) => (
             <div className="text-center" key={index}>
               <h3 className="flex justify-center text-8xl text-pink-400 mb-4">{item?.icon}</h3>

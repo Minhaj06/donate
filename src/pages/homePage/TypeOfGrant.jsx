@@ -72,7 +72,7 @@ const TypeOfGrant = () => {
       <div className="container">
         <SectionTitle title="Type of grant" />
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-8 text-center">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-8 text-center">
           {grantTypeData.map((item) => (
             <div>
               <div className="flex justify-center p-4">

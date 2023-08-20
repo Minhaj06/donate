@@ -102,7 +102,7 @@ const CompletedDonations = () => {
       <div className="container">
         <SectionTitle className="text-white" title="Completed Donations" />
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {CompletedDonationsData.map((donation) => {
             const raisedPercentage = Math.round((donation.raised / donation.goal) * 100);
 

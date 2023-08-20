@@ -41,7 +41,7 @@ const Header = () => {
           {/* Menu */}
           <nav
             className={`
-          fixed top-0 w-full h-full py-8 flex flex-col justify-center items-center gap-y-4 duration-300 z-[1040] lg:static lg:py-0 lg:w-auto lg:h-auto lg:flex lg:flex-row flex-wrap lg:space-x-6 xl:space-x-10 ${
+          fixed top-0 bg-primary lg:bg-transparent w-full h-full py-8 flex flex-col justify-center items-center gap-y-4 duration-300 z-[1040] lg:static lg:py-0 lg:w-auto lg:h-auto lg:flex lg:flex-row flex-wrap lg:space-x-6 xl:space-x-10 ${
             showMenu ? "left-0" : "-left-full"
           }`}
           >

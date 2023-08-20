@@ -100,10 +100,10 @@ const CompletedDonationsPage = () => {
   return (
     <section className="py-20 bg-success">
       <div className="container">
-        <div className="bg-primary mb-8 p-4 flex items-center justify-between flex-wrap gap-4 rounded-md">
-          <div className="flex gap-4 items-center">
+        <div className="bg-primary mb-8 p-4 xl:flex items-center justify-between gap-4 rounded-md">
+          <div className="flex flex-wrap sm:flex-nowrap gap-4 items-center justify-between xl:justify-start flex-grow">
             {/* Country Select */}
-            <select className="select bg-teal-200 focus:outline-none">
+            <select className="select bg-teal-200 w-full xl:w-auto focus:outline-none">
               <option disabled selected>
                 Country
               </option>
@@ -113,7 +113,7 @@ const CompletedDonationsPage = () => {
             </select>
 
             {/* Category Select */}
-            <select className="select bg-teal-200 focus:outline-none">
+            <select className="select bg-teal-200 w-full xl:w-auto focus:outline-none">
               <option disabled selected>
                 Category
               </option>
@@ -131,7 +131,7 @@ const CompletedDonationsPage = () => {
             </select>
 
             {/* Type Select */}
-            <select className="select bg-teal-200 focus:outline-none">
+            <select className="select bg-teal-200 w-full xl:w-auto focus:outline-none">
               <option disabled selected>
                 Type
               </option>
@@ -141,7 +141,7 @@ const CompletedDonationsPage = () => {
             </select>
 
             {/* Mode Select */}
-            <select className="select bg-teal-200 focus:outline-none">
+            <select className="select bg-teal-200 w-full xl:w-auto focus:outline-none">
               <option disabled selected>
                 Mode
               </option>
@@ -151,7 +151,7 @@ const CompletedDonationsPage = () => {
             </select>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center justify-between gap-4 mt-4 xl:mt-0">
             {/* Search */}
             <div className="form-control">
               <div className="input-group">
