@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Modal, Upload } from "antd";
 import CaptureModal from "./CaptureModal";
 import CaptureButton from "./CaptureButton";
@@ -13,12 +13,81 @@ const getBase64 = (file) =>
   });
 
 const VolunteerContactInputs = () => {
-  // Handle Volunteer Photos
+  // Webcam Capture States
+  const [webcamModalOpen, setWebcamModalOpen] = useState(false);
+  const [capturedWebcamImage, setCapturedWebcamImage] = useState("");
+  const [currentContext, setCurrentContext] = useState("");
+
+  // Volunteer States
   const [volunteerPhotoPreviewOpen, setVolunteerPhotoPreviewOpen] = useState(false);
   const [volunteerPreviewImage, setVolunteerPreviewImage] = useState("");
   const [volunteerPhotoPreviewTitle, setVolunteerPhotoPreviewTitle] = useState("");
-  const [volunteerPhoto, setVolunteerPhoto] = useState([]);
+  const [volunteerPhotos, setVolunteerPhotos] = useState([]);
 
+  // Identity States
+  const [NID, setNID] = useState(true);
+  const [identityPhotoPreviewOpen, setIdentityPhotoPreviewOpen] = useState(false);
+  const [identityPreviewImage, setIdentityPreviewImage] = useState("");
+  const [identityPhotoPreviewTitle, setIdentityPhotoPreviewTitle] = useState("");
+  const [identityPhotos, setIdentityPhotos] = useState([]);
+
+  // Handle Webcam Capture Photos
+  const handleWebcamModalOpen = (context) => {
+    setWebcamModalOpen(!webcamModalOpen);
+    setCurrentContext(context);
+  };
+
+  const capturedWebcamPhoto = (imageSrc, prevPhotos) => {
+    setCapturedWebcamImage(imageSrc);
+
+    let arr = [];
+
+    if (prevPhotos) {
+      arr = [...prevPhotos];
+    } else {
+      arr = [];
+    }
+
+    const webcamFile = {
+      uid: Math.floor(Math.random() * 1000000),
+      name: `${Math.floor(Math.random() * 1000000)}.jpg`,
+      status: "error",
+      url: imageSrc,
+    };
+
+    arr.push(webcamFile);
+    return arr;
+  };
+
+  const captureWebcamPhoto = (imageSrc) => {
+    let arr = [];
+
+    if (currentContext === "volunteer") {
+      arr = capturedWebcamPhoto(imageSrc, volunteerPhotos);
+      setVolunteerPhotos(arr);
+    } else if (currentContext === "identity") {
+      arr = capturedWebcamPhoto(imageSrc, identityPhotos);
+      setIdentityPhotos(arr);
+    }
+
+    handleWebcamModalOpen("");
+  };
+
+  // const captureWebcamVolunteerPhoto = (imageSrc) => {
+  //   const arr = capturedWebcamPhoto(imageSrc);
+
+  //   setVolunteerPhotos(arr);
+  //   handleWebcamModalOpen();
+  // };
+
+  // const captureWebcamIdentityPhotos = (imageSrc) => {
+  //   const arr = capturedWebcamPhoto(imageSrc, identityPhotos);
+
+  //   setIdentityPhotos(arr);
+  //   handleWebcamModalOpen();
+  // };
+
+  // Handle Volunteer Photos
   const handleVolunteerPhotoCancel = () => setVolunteerPhotoPreviewOpen(false);
   const handleVolunteerPhoto = async (file) => {
     if (!file.url && !file.preview) {
@@ -31,44 +100,9 @@ const VolunteerContactInputs = () => {
     );
   };
   const handleVolunteerPhotoChange = ({ fileList: newFileList }) =>
-    setVolunteerPhoto(newFileList);
+    setVolunteerPhotos(newFileList);
 
-  // dfkdfsk
-  const [webcamModalOpen, setWebcamModalOpen] = useState(false);
-  const [capturedWebcamImage, setCapturedWebcamImage] = useState("");
-
-  const captureWebcamVolunteerPhoto = (imageSrc) => {
-    const arr = capturedWebcamPhoto(imageSrc);
-
-    setVolunteerPhoto(arr);
-    handleWebcamVolunteerModalOpen();
-  };
-  const capturedWebcamPhoto = (imageSrc) => {
-    setCapturedWebcamImage(imageSrc);
-
-    const arr = [];
-    const webcamFile = {
-      uid: Math.floor(Math.random() * 1000000),
-      name: `${Math.floor(Math.random() * 1000000)}.jpg`,
-      status: "error",
-      url: imageSrc,
-    };
-
-    arr.push(webcamFile);
-    return arr;
-  };
-
-  const handleWebcamVolunteerModalOpen = () => {
-    setWebcamModalOpen(!webcamModalOpen);
-  };
-
-  // Handle Identity Photos
-  const [NID, setNID] = useState(true);
-  const [identityPhotoPreviewOpen, setIdentityPhotoPreviewOpen] = useState(false);
-  const [identityPreviewImage, setIdentityPreviewImage] = useState("");
-  const [identityPhotoPreviewTitle, setIdentityPhotoPreviewTitle] = useState("");
-  const [identityPhoto, setIdentityPhoto] = useState([]);
-
+  // Handle Identify Photos
   const handleIdentityPhotoCancel = () => setIdentityPhotoPreviewOpen(false);
   const handleIdentityPhoto = async (file) => {
     if (!file.url && !file.preview) {
@@ -81,7 +115,7 @@ const VolunteerContactInputs = () => {
     );
   };
   const handleIdentityPhotoChange = ({ fileList: newFileList }) =>
-    setIdentityPhoto(newFileList);
+    setIdentityPhotos(newFileList);
 
   return (
     <>
@@ -89,62 +123,34 @@ const VolunteerContactInputs = () => {
         <label className="label">
           <span className="label-text text-lg">Photo of Volunteer</span>
         </label>
-        {volunteerPhoto.length > 0 ? (
+        {volunteerPhotos.length > 0 ? (
           <Upload
             className="mt-2"
             action=""
             listType="picture-circle"
-            fileList={volunteerPhoto}
+            fileList={volunteerPhotos}
             onPreview={handleVolunteerPhoto}
             onChange={handleVolunteerPhotoChange}
           >
-            {volunteerPhoto.length >= 1 ? null : <UploadButton buttonText="Volunteer photo" />}
+            {volunteerPhotos.length >= 1 ? null : (
+              <UploadButton buttonText="Volunteer photo" />
+            )}
           </Upload>
         ) : (
           <CaptureButton
             buttonText="Volunteer photo"
-            handleModal={handleWebcamVolunteerModalOpen}
+            handleModal={() => handleWebcamModalOpen("volunteer")}
           />
         )}
-        {/* <Modal
-          key="volunteerPhotoCaptureModal"
-          centered
-          title="Take a photo"
-          open={webcamModalOpen}
-          onCancel={handleWebcamVolunteerModalOpen}
-          footer={[
-            <button
-              key="volunterPhotoCaptureModalClose"
-              onClick={handleWebcamVolunteerModalOpen}
-              className="btn btn-error btn-sm normal-case"
-            >
-              , Close
-            </button>,
-          ]}
-        >
-          <div className="flex flex-col items-center">
-            <Webcam audio={false} ref={webcamRef} screenshotFormat="image/jpeg" />
-            <div>
-              <button
-                onClick={captureWebcamVolunteerPhoto}
-                className="btn btn-primary btn-sm normal-case mt-2"
-              >
-                Capture
-              </button>
-            </div>
-          </div>
-        </Modal> */}
-        {/* const CaptureModal = ({(modalState, handleModalOpen, captureState)}) */}
 
         <CaptureModal
           modalState={webcamModalOpen}
-          handleModalOpen={handleWebcamVolunteerModalOpen}
-          captureState={captureWebcamVolunteerPhoto}
+          handleModalOpen={() => handleWebcamModalOpen("")}
+          captureState={captureWebcamPhoto}
         />
 
         {/* Preview Modal */}
         <Modal
-          key="volunteerPhotoPreviewModal"
           centered
           open={volunteerPhotoPreviewOpen}
           title={volunteerPhotoPreviewTitle}
@@ -171,48 +177,52 @@ const VolunteerContactInputs = () => {
         </select>
 
         {NID ? (
-          identityPhoto.length > 0 ? (
+          identityPhotos.length > 1 ? (
             <Upload
               className="mt-2"
-              action="https://www.mocky.io/v2/5cc8019d300000980a055e7"
+              action=""
               listType="picture-card"
-              fileList={identityPhoto}
+              fileList={identityPhotos}
               onPreview={handleIdentityPhoto}
               onChange={handleIdentityPhotoChange}
               maxCount={2}
             >
-              {identityPhoto.length >= 2 ? null : (
+              {identityPhotos.length >= 2 ? null : (
                 <UploadButton
-                  key="identityPhotoUploadButton"
-                  buttonText={identityPhoto.length <= 0 ? "NID front side" : "NID back side"}
+                  buttonText={
+                    identityPhotos.length <= 0 ? "NID front side" : "NID back sideddd"
+                  }
                 />
               )}
             </Upload>
           ) : (
-            <CaptureButton
-              buttonText="Volunteer photo"
-              handleModal={handleWebcamVolunteerModalOpen}
-            />
+            <>
+              <CaptureButton
+                buttonText={identityPhotos.length <= 0 ? "NID front side" : "NID back side"}
+                handleModal={() => handleWebcamModalOpen("identity")}
+              />{" "}
+              <CaptureModal
+                modalState={webcamModalOpen}
+                handleModalOpen={() => handleWebcamModalOpen("")}
+                captureState={captureWebcamPhoto}
+              />
+            </>
           )
         ) : (
           <Upload
             className="mt-2"
-            action="https://www.mocky.io/v2/5cc8019d300000980a055e7"
+            action=""
             listType="picture-circle"
-            fileList={identityPhoto}
+            fileList={identityPhotos}
             onPreview={handleIdentityPhoto}
             onChange={handleIdentityPhotoChange}
           >
-            {identityPhoto.length >= 1 ? null : (
-              <UploadButton
-                key="birthCertificatePhotoUploadButton"
-                buttonText="Birth Certificate"
-              />
+            {identityPhotos.length >= 1 ? null : (
+              <UploadButton buttonText="Birth Certificate" />
             )}
           </Upload>
         )}
         <Modal
-          key="identityPhotoPreviewModal"
           open={identityPhotoPreviewOpen}
           title={identityPhotoPreviewTitle}
           footer={null}
@@ -228,12 +238,7 @@ const VolunteerContactInputs = () => {
           />
         </Modal>
       </div>
-      {/* <div className="form-control">
-        <label className="label">
-          <span className="label-text text-lg">Birth Certificate</span>
-        </label>
-        <input type="file" accept=".pdf, .jpg, .jpeg, .png" className="input" />
-      </div> */}
+
       <div className="form-control">
         <label className="label">
           <span className="label-text text-lg">Other Documents</span>
