@@ -13,6 +13,9 @@ export default {
         center: true,
         padding: "0.75rem",
       },
+      backgroundColor: {
+        button: "red", // Set your desired background color
+      },
     },
   },
   daisyui: {
