@@ -1,8 +1,5 @@
 import React, { useRef, useState } from "react";
 import { Modal, Upload } from "antd";
-import ImgCrop from "antd-img-crop";
-
-import Webcam from "react-webcam";
 import CaptureModal from "./CaptureModal";
 import CaptureButton from "./CaptureButton";
 import UploadButton from "./UploadButton";
