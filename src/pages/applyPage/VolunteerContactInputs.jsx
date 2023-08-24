@@ -128,13 +128,14 @@ const VolunteerContactInputs = () => {
             handleModal={() => handleWebcamModalOpen("volunteer")}
           />
         )}
-
-        <CaptureModal
-          modalState={webcamModalOpen}
-          handleModalOpen={() => handleWebcamModalOpen("")}
-          captureState={captureWebcamPhoto}
-          photoSize={{ width: 300, height: 300 }}
-        />
+        {currentContext === "volunteer" && (
+          <CaptureModal
+            modalState={webcamModalOpen}
+            handleModalOpen={() => handleWebcamModalOpen("")}
+            captureState={captureWebcamPhoto}
+            photoSize={{ width: 300, height: 300 }}
+          />
+        )}
 
         {/* Preview Modal */}
         <Modal
@@ -191,13 +192,15 @@ const VolunteerContactInputs = () => {
               <CaptureButton
                 buttonText={identityPhotos.length <= 0 ? "NID front" : "NID back"}
                 handleModal={() => handleWebcamModalOpen("identity")}
-              />{" "}
-              <CaptureModal
-                modalState={webcamModalOpen}
-                handleModalOpen={() => handleWebcamModalOpen("")}
-                captureState={captureWebcamPhoto}
-                photoSize={{ width: 640, height: 480 }}
               />
+              {currentContext === "identity" && (
+                <CaptureModal
+                  modalState={webcamModalOpen}
+                  handleModalOpen={() => handleWebcamModalOpen("")}
+                  captureState={captureWebcamPhoto}
+                  photoSize={{ width: 640, height: 480 }}
+                />
+              )}
             </>
           )
         ) : (
@@ -233,13 +236,15 @@ const VolunteerContactInputs = () => {
                 <CaptureButton
                   buttonText="Birth Certificate"
                   handleModal={() => handleWebcamModalOpen("identity")}
-                />{" "}
-                <CaptureModal
-                  modalState={webcamModalOpen}
-                  handleModalOpen={() => handleWebcamModalOpen("")}
-                  captureState={captureWebcamPhoto}
-                  photoSize={{ width: 413, height: 531 }}
                 />
+                {currentContext === "identity" && (
+                  <CaptureModal
+                    modalState={webcamModalOpen}
+                    handleModalOpen={() => handleWebcamModalOpen("")}
+                    captureState={captureWebcamPhoto}
+                    photoSize={{ width: 413, height: 531 }}
+                  />
+                )}
               </>
             )}
           </>
