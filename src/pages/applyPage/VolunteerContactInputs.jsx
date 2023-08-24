@@ -73,20 +73,6 @@ const VolunteerContactInputs = () => {
     handleWebcamModalOpen("");
   };
 
-  // const captureWebcamVolunteerPhoto = (imageSrc) => {
-  //   const arr = capturedWebcamPhoto(imageSrc);
-
-  //   setVolunteerPhotos(arr);
-  //   handleWebcamModalOpen();
-  // };
-
-  // const captureWebcamIdentityPhotos = (imageSrc) => {
-  //   const arr = capturedWebcamPhoto(imageSrc, identityPhotos);
-
-  //   setIdentityPhotos(arr);
-  //   handleWebcamModalOpen();
-  // };
-
   // Handle Volunteer Photos
   const handleVolunteerPhotoCancel = () => setVolunteerPhotoPreviewOpen(false);
   const handleVolunteerPhoto = async (file) => {
@@ -171,7 +157,13 @@ const VolunteerContactInputs = () => {
         <label className="label">
           <span className="label-text text-lg">Photo of NID or Birth Certificate</span>
         </label>
-        <select onChange={() => setNID(!NID)} className="input">
+        <select
+          onChange={() => {
+            setNID(!NID);
+            setIdentityPhotos([]);
+          }}
+          className="input"
+        >
           <option value="nid">NID</option>
           <option value="birth">Birth Certificate</option>
         </select>
@@ -189,16 +181,14 @@ const VolunteerContactInputs = () => {
             >
               {identityPhotos.length >= 2 ? null : (
                 <UploadButton
-                  buttonText={
-                    identityPhotos.length <= 0 ? "NID front side" : "NID back sideddd"
-                  }
+                  buttonText={identityPhotos.length <= 0 ? "NID front" : "NID back"}
                 />
               )}
             </Upload>
           ) : (
             <>
               <CaptureButton
-                buttonText={identityPhotos.length <= 0 ? "NID front side" : "NID back side"}
+                buttonText={identityPhotos.length <= 0 ? "NID front" : "NID back"}
                 handleModal={() => handleWebcamModalOpen("identity")}
               />{" "}
               <CaptureModal
@@ -209,18 +199,47 @@ const VolunteerContactInputs = () => {
             </>
           )
         ) : (
-          <Upload
-            className="mt-2"
-            action=""
-            listType="picture-circle"
-            fileList={identityPhotos}
-            onPreview={handleIdentityPhoto}
-            onChange={handleIdentityPhotoChange}
-          >
-            {identityPhotos.length >= 1 ? null : (
-              <UploadButton buttonText="Birth Certificate" />
+          <>
+            {/* <Upload
+              className="mt-2"
+              action=""
+              listType="picture-circle"
+              fileList={identityPhotos}
+              onPreview={handleIdentityPhoto}
+              onChange={handleIdentityPhotoChange}
+            >
+              {identityPhotos.length >= 1 ? null : (
+                <UploadButton buttonText="Birth Certificate" />
+              )}
+            </Upload> */}
+            {identityPhotos.length > 0 ? (
+              <Upload
+                className="mt-2"
+                action=""
+                listType="picture-card"
+                fileList={identityPhotos}
+                onPreview={handleIdentityPhoto}
+                onChange={handleIdentityPhotoChange}
+                maxCount={2}
+              >
+                {identityPhotos.length >= 1 ? null : (
+                  <UploadButton buttonText="Birth Certificate" />
+                )}
+              </Upload>
+            ) : (
+              <>
+                <CaptureButton
+                  buttonText="Birth Certificate"
+                  handleModal={() => handleWebcamModalOpen("identity")}
+                />{" "}
+                <CaptureModal
+                  modalState={webcamModalOpen}
+                  handleModalOpen={() => handleWebcamModalOpen("")}
+                  captureState={captureWebcamPhoto}
+                />
+              </>
             )}
-          </Upload>
+          </>
         )}
         <Modal
           open={identityPhotoPreviewOpen}
