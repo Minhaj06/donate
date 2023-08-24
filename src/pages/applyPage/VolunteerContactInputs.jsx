@@ -133,6 +133,7 @@ const VolunteerContactInputs = () => {
           modalState={webcamModalOpen}
           handleModalOpen={() => handleWebcamModalOpen("")}
           captureState={captureWebcamPhoto}
+          photoSize={{ width: 300, height: 300 }}
         />
 
         {/* Preview Modal */}
@@ -195,6 +196,7 @@ const VolunteerContactInputs = () => {
                 modalState={webcamModalOpen}
                 handleModalOpen={() => handleWebcamModalOpen("")}
                 captureState={captureWebcamPhoto}
+                photoSize={{ width: 640, height: 480 }}
               />
             </>
           )
@@ -236,6 +238,7 @@ const VolunteerContactInputs = () => {
                   modalState={webcamModalOpen}
                   handleModalOpen={() => handleWebcamModalOpen("")}
                   captureState={captureWebcamPhoto}
+                  photoSize={{ width: 413, height: 531 }}
                 />
               </>
             )}

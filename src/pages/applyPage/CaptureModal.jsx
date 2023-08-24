@@ -1,13 +1,26 @@
-import React, { useRef } from "react";
-import { Modal } from "antd";
+import React, { useRef, useState } from "react";
+import { Modal, Button } from "antd";
 import Webcam from "react-webcam";
+import { FaCameraRotate } from "react-icons/fa6";
+import { TbCapture } from "react-icons/tb";
 
-const CaptureModal = ({ modalState, handleModalOpen, captureState }) => {
+const videoConstraints = {
+  width: 300,
+  height: 300,
+};
+
+const CaptureModal = ({ modalState, handleModalOpen, captureState, photoSize }) => {
   const webcamRef = useRef(null);
+  const [facingMode, setFacingMode] = useState("user"); // "user" for front, "environment" for back
+
+  const toggleCamera = () => {
+    setFacingMode(facingMode === "user" ? "environment" : "user");
+  };
+
+  console.log(photoSize);
 
   return (
     <Modal
-      key="volunteerPhotoCaptureModal"
       centered
       title="Take a photo"
       open={modalState}
@@ -15,21 +28,42 @@ const CaptureModal = ({ modalState, handleModalOpen, captureState }) => {
       footer={[
         <button
           key="volunteerPhotoCaptureModalClose"
-          onClick={handleModalOpen}
           className="btn btn-error btn-sm normal-case"
+          onClick={handleModalOpen}
         >
           Close
         </button>,
       ]}
     >
       <div className="flex flex-col items-center">
-        <Webcam audio={false} ref={webcamRef} screenshotFormat="image/jpeg" />
-        <div>
+        <Webcam
+          mirrored
+          audio={false}
+          ref={webcamRef}
+          screenshotFormat="image/jpeg"
+          videoConstraints={{ ...videoConstraints, facingMode: facingMode }}
+        />
+
+        <div className="mt-5">
           <button
-            onClick={() => captureState(webcamRef.current.getScreenshot())}
-            className="btn btn-primary btn-sm normal-case mt-2"
+            key="switchCamerButton"
+            title="Rotate camera"
+            className="btn btn-primary btn-sm normal-case mr-3"
+            onClick={toggleCamera}
           >
-            Capture
+            <FaCameraRotate size={24} />
+          </button>
+
+          <button
+            key="captureButton"
+            title="Take a photo"
+            className="btn btn-primary btn-sm normal-case"
+            onClick={() => {
+              captureState(webcamRef.current.getScreenshot(photoSize));
+              handleModalOpen();
+            }}
+          >
+            <TbCapture size={24} />
           </button>
         </div>
       </div>
