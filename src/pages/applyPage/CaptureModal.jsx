@@ -17,8 +17,6 @@ const CaptureModal = ({ modalState, handleModalOpen, captureState, photoSize }) 
     setFacingMode(facingMode === "user" ? "environment" : "user");
   };
 
-  console.log(photoSize);
-
   return (
     <Modal
       centered
@@ -37,7 +35,7 @@ const CaptureModal = ({ modalState, handleModalOpen, captureState, photoSize }) 
     >
       <div className="flex flex-col items-center">
         <Webcam
-          mirrored
+          mirrored={facingMode === "user"}
           audio={false}
           ref={webcamRef}
           screenshotFormat="image/jpeg"

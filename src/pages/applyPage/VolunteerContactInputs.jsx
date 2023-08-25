@@ -100,8 +100,9 @@ const VolunteerContactInputs = () => {
       file.name || file.url.substring(file.url.lastIndexOf("/") + 1)
     );
   };
-  const handleIdentityPhotoChange = ({ fileList: newFileList }) =>
-    setIdentityPhotos(newFileList);
+  const handleIdentityPhotoChange = ({ fileList: newFileList }) => {
+    setIdentityPhotos([]);
+  };
 
   return (
     <>
@@ -126,6 +127,7 @@ const VolunteerContactInputs = () => {
           <CaptureButton
             buttonText="Volunteer photo"
             handleModal={() => handleWebcamModalOpen("volunteer")}
+            circle
           />
         )}
         {currentContext === "volunteer" && (
