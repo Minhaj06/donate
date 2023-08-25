@@ -1,178 +1,72 @@
-import React, { useState, useCallback } from "react";
-import { Modal, Upload } from "antd";
-import CaptureModal from "./CaptureModal";
-import CaptureButton from "./CaptureButton";
-import UploadButton from "./UploadButton";
+import React, { useRef, useState } from "react";
+import { Modal, Button } from "antd";
+import Webcam from "react-webcam";
+import { FaCameraRotate } from "react-icons/fa6";
+import { TbCapture } from "react-icons/tb";
 
-const VolunteerContactInputs = () => {
-  const [webcamModalOpen, setWebcamModalOpen] = useState(false);
-  const [currentContext, setCurrentContext] = useState("");
-  const [volunteerPhotos, setVolunteerPhotos] = useState([]);
-  const [identityPhotos, setIdentityPhotos] = useState({ front: [], back: [] });
-  const [identityPhotoSide, setIdentityPhotoSide] = useState("front");
-  const [identityPhotoPreviewOpen, setIdentityPhotoPreviewOpen] = useState(false);
-  const [identityPreviewImage, setIdentityPreviewImage] = useState("");
-  const [identityPhotoPreviewTitle, setIdentityPhotoPreviewTitle] = useState("");
+const videoConstraints = {
+  width: 300,
+  height: 300,
+};
 
-  const handleWebcamModalOpen = useCallback((context) => {
-    setWebcamModalOpen((prevOpen) => !prevOpen);
-    setCurrentContext(context);
-  }, []);
+const CaptureModal = ({ modalState, handleModalOpen, captureState, photoSize }) => {
+  const webcamRef = useRef(null);
+  const [facingMode, setFacingMode] = useState("user"); // "user" for front, "environment" for back
 
-  const capturedWebcamPhoto = (imageSrc, prevPhotos) => {
-    const webcamFile = {
-      uid: Math.floor(Math.random() * 1000000),
-      name: `${Math.floor(Math.random() * 1000000)}.jpg`,
-      status: "error",
-      url: imageSrc,
-    };
-
-    return [...prevPhotos, webcamFile];
-  };
-
-  const captureWebcamPhoto = (imageSrc) => {
-    if (currentContext === "volunteer") {
-      setVolunteerPhotos((prevPhotos) => capturedWebcamPhoto(imageSrc, prevPhotos));
-    } else if (currentContext === "identity") {
-      setIdentityPhotos((prevPhotos) => ({
-        ...prevPhotos,
-        [identityPhotoSide]: capturedWebcamPhoto(imageSrc, prevPhotos[identityPhotoSide]),
-      }));
-    }
-
-    handleWebcamModalOpen("");
-  };
-
-  const handlePhotoPreview = useCallback((imageSrc, setTitle, setOpen) => {
-    setTitle(file.name || file.url.substring(file.url.lastIndexOf("/") + 1));
-    setOpen(true);
-  }, []);
-
-  const handlePhotoCancel = useCallback((setOpen) => {
-    setOpen(false);
-  }, []);
-
-  const handlePhotoChange = useCallback((newFileList, setPhotos) => {
-    setPhotos(newFileList);
-  }, []);
-
-  const handlePhotoCapture = useCallback(
-    (context, photoSize, photos, setPhotos) => {
-      handleWebcamModalOpen(context);
-      handlePhotoChange(capturedWebcamPhoto(photoSize, photos), setPhotos);
-    },
-    [handleWebcamModalOpen, handlePhotoChange]
-  );
-
-  const handlePhotoSideChange = useCallback((newSide) => {
-    setIdentityPhotoSide(newSide);
-  }, []);
-
-  const renderUploadButton = (context, buttonText, photos, setPhotos, maxCount) => {
-    if (photos.length >= (maxCount || 1)) {
-      return null;
-    }
-
-    if (context === "identity") {
-      return (
-        <UploadButton
-          buttonText={photos.length <= 0 ? "NID front" : "NID back"}
-          handleModal={() =>
-            handlePhotoCapture(context, { width: 640, height: 480 }, photos, setPhotos)
-          }
-        />
-      );
-    }
-
-    return (
-      <UploadButton
-        buttonText={photos.length <= 0 ? "Volunteer photo" : "Capture another"}
-        handleModal={() =>
-          handlePhotoCapture(context, { width: 300, height: 300 }, photos, setPhotos)
-        }
-      />
-    );
+  const toggleCamera = () => {
+    setFacingMode(facingMode === "user" ? "environment" : "user");
   };
 
   return (
-    <>
-      {/* Volunteer Photo */}
-      {/* Identity Photo */}
-      <div className="form-control">
-        <label className="label">
-          <span className="label-text text-lg">Photo of NID or Birth Certificate</span>
-        </label>
-        <select
-          onChange={() => {
-            setNID(!NID);
-            setIdentityPhotos({ front: [], back: [] });
-          }}
-          className="input"
+    <Modal
+      centered
+      title="Take a photo"
+      open={modalState}
+      onCancel={handleModalOpen}
+      footer={[
+        <button
+          key="volunteerPhotoCaptureModalClose"
+          className="btn btn-error btn-sm normal-case"
+          onClick={handleModalOpen}
         >
-          <option value="nid">NID</option>
-          <option value="birth">Birth Certificate</option>
-        </select>
+          Close
+        </button>,
+      ]}
+    >
+      <div className="flex flex-col items-center">
+        <Webcam
+          mirrored={facingMode === "user"}
+          audio={false}
+          ref={webcamRef}
+          screenshotFormat="image/jpeg"
+          videoConstraints={{ ...videoConstraints, facingMode: facingMode }}
+        />
 
-        {NID ? (
-          <Upload
-            className="mt-2"
-            action=""
-            listType="picture-card"
-            fileList={identityPhotos[identityPhotoSide]}
-            onPreview={handleIdentityPhoto}
-            onChange={handleIdentityPhotoChange}
-            maxCount={2}
+        <div className="mt-5">
+          <button
+            key="switchCamerButton"
+            title="Rotate camera"
+            className="btn btn-primary btn-sm normal-case mr-3"
+            onClick={toggleCamera}
           >
-            {identityPhotos[identityPhotoSide].length >= 2 ? null : (
-              <UploadButton
-                buttonText={
-                  identityPhotos[identityPhotoSide].length <= 0 ? "NID front" : "NID back"
-                }
-              />
-            )}
-          </Upload>
-        ) : (
-          <Upload
-            className="mt-2"
-            action=""
-            listType="picture-card"
-            fileList={identityPhotos[identityPhotoSide]}
-            onPreview={handleIdentityPhoto}
-            onChange={handleIdentityPhotoChange}
-            maxCount={2}
-          >
-            {identityPhotos[identityPhotoSide].length >= 1 ? null : (
-              <UploadButton buttonText="Birth Certificate" />
-            )}
-          </Upload>
-        )}
-        {currentContext === "identity" && (
-          <CaptureModal
-            modalState={webcamModalOpen}
-            handleModalOpen={() => handleWebcamModalOpen("")}
-            captureState={captureWebcamPhoto}
-            photoSize={{ width: 640, height: 480 }}
-          />
-        )}
-        <Modal
-          open={identityPhotoPreviewOpen}
-          title={identityPhotoPreviewTitle}
-          footer={null}
-          onCancel={handleIdentityPhotoCancel}
-        >
-          <img
-            className="border bg-green-400"
-            alt="example"
-            style={{
-              width: "100%",
+            <FaCameraRotate size={24} />
+          </button>
+
+          <button
+            key="captureButton"
+            title="Take a photo"
+            className="btn btn-primary btn-sm normal-case"
+            onClick={() => {
+              captureState(webcamRef.current.getScreenshot(photoSize));
+              handleModalOpen();
             }}
-            src={identityPreviewImage}
-          />
-        </Modal>
+          >
+            <TbCapture size={24} />
+          </button>
+        </div>
       </div>
-      {/* Other input controls */}
-    </>
+    </Modal>
   );
 };
 
-export default VolunteerContactInputs;
+export default CaptureModal;

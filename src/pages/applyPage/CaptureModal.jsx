@@ -1,8 +1,8 @@
 import React, { useRef, useState } from "react";
-import { Modal, Button } from "antd";
-import Webcam from "react-webcam";
+import { Modal } from "antd";
 import { FaCameraRotate } from "react-icons/fa6";
 import { TbCapture } from "react-icons/tb";
+import Webcam from "react-webcam";
 
 const videoConstraints = {
   width: 300,
@@ -69,4 +69,4 @@ const CaptureModal = ({ modalState, handleModalOpen, captureState, photoSize }) 
   );
 };
 
-export default CaptureModal;
+export default React.memo(CaptureModal);

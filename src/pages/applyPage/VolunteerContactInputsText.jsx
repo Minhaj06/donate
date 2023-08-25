@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import { Modal, Upload } from "antd";
 import CaptureModal from "./CaptureModal";
 import CaptureButton from "./CaptureButton";
@@ -32,12 +32,12 @@ const VolunteerContactInputs = () => {
   const [identityPhotos, setIdentityPhotos] = useState([]);
 
   // Handle Webcam Capture Photos
-  const handleWebcamModalOpen = useCallback((context) => {
+  const handleWebcamModalOpen = (context) => {
     setWebcamModalOpen(!webcamModalOpen);
     setCurrentContext(context);
-  }, []);
+  };
 
-  const capturedWebcamPhoto = useCallback((imageSrc, prevPhotos) => {
+  const capturedWebcamPhoto = (imageSrc, prevPhotos) => {
     setCapturedWebcamImage(imageSrc);
 
     let arr = [];
@@ -57,38 +57,25 @@ const VolunteerContactInputs = () => {
 
     arr.push(webcamFile);
     return arr;
-  }, []);
+  };
 
-  const captureWebcamPhoto = useCallback(
-    (imageSrc) => {
-      let arr = [];
+  const captureWebcamPhoto = (imageSrc) => {
+    let arr = [];
 
-      if (currentContext === "volunteer") {
-        arr = capturedWebcamPhoto(imageSrc, volunteerPhotos);
-        setVolunteerPhotos(arr);
-      } else if (currentContext === "identity") {
-        arr = capturedWebcamPhoto(imageSrc, identityPhotos);
-        setIdentityPhotos(arr);
-      }
+    if (currentContext === "volunteer") {
+      arr = capturedWebcamPhoto(imageSrc, volunteerPhotos);
+      setVolunteerPhotos(arr);
+    } else if (currentContext === "identity") {
+      arr = capturedWebcamPhoto(imageSrc, identityPhotos);
+      setIdentityPhotos(arr);
+    }
 
-      handleWebcamModalOpen("");
-    },
-    [
-      currentContext,
-      capturedWebcamPhoto,
-      volunteerPhotos,
-      identityPhotos,
-      handleWebcamModalOpen,
-    ]
-  );
+    handleWebcamModalOpen("");
+  };
 
   // Handle Volunteer Photos
-  const handleVolunteerPhotoCancel = useCallback(
-    () => setVolunteerPhotoPreviewOpen(false),
-    []
-  );
-
-  const handleVolunteerPhoto = useCallback(async (file) => {
+  const handleVolunteerPhotoCancel = () => setVolunteerPhotoPreviewOpen(false);
+  const handleVolunteerPhoto = async (file) => {
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj);
     }
@@ -97,16 +84,13 @@ const VolunteerContactInputs = () => {
     setVolunteerPhotoPreviewTitle(
       file.name || file.url.substring(file.url.lastIndexOf("/") + 1)
     );
-  }, []);
-
-  const handleVolunteerPhotoChange = useCallback(({ fileList: newFileList }) => {
+  };
+  const handleVolunteerPhotoChange = ({ fileList: newFileList }) =>
     setVolunteerPhotos(newFileList);
-  }, []);
 
   // Handle Identify Photos
-  const handleIdentityPhotoCancel = useCallback(() => setIdentityPhotoPreviewOpen(false), []);
-
-  const handleIdentityPhoto = useCallback(async (file) => {
+  const handleIdentityPhotoCancel = () => setIdentityPhotoPreviewOpen(false);
+  const handleIdentityPhoto = async (file) => {
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj);
     }
@@ -115,11 +99,10 @@ const VolunteerContactInputs = () => {
     setIdentityPhotoPreviewTitle(
       file.name || file.url.substring(file.url.lastIndexOf("/") + 1)
     );
-  }, []);
-
-  const handleIdentityPhotoChange = useCallback(({ fileList: newFileList }) => {
+  };
+  const handleIdentityPhotoChange = ({ fileList: newFileList }) => {
     setIdentityPhotos([]);
-  }, []);
+  };
 
   return (
     <>
@@ -313,4 +296,4 @@ const VolunteerContactInputs = () => {
   );
 };
 
-export default VolunteerContactInputs;
+export default React.memo(VolunteerContactInputs);
