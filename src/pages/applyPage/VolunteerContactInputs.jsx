@@ -31,6 +31,12 @@ const VolunteerContactInputs = () => {
   const [identityPhotoPreviewTitle, setIdentityPhotoPreviewTitle] = useState("");
   const [identityPhotos, setIdentityPhotos] = useState([]);
 
+  // Document States
+  const [documentPreviewOpen, setDocumentPreviewOpen] = useState(false);
+  const [documentPreview, setDocumentPreview] = useState("");
+  const [documentPreviewTitle, setDocumentPreviewTitle] = useState("");
+  const [documents, setDocuments] = useState([]);
+
   // Handle Webcam Capture Photos
   const handleWebcamModalOpen = useCallback((context) => {
     setWebcamModalOpen(!webcamModalOpen);
@@ -121,6 +127,22 @@ const VolunteerContactInputs = () => {
     setIdentityPhotos([]);
   }, []);
 
+  // Handle Documents
+  const handleDocumentCancel = useCallback(() => setDocumentPreviewOpen(false), []);
+
+  const handleDocument = useCallback(async (file) => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj);
+    }
+    setDocumentPreview(file.url || file.preview);
+    setDocumentPreviewOpen(true);
+    setDocumentPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf("/") + 1));
+  }, []);
+
+  const handleDocumentChange = useCallback(({ fileList: newFileList }) => {
+    setDocuments(newFileList);
+  }, []);
+
   return (
     <>
       <div className="form-control">
@@ -130,7 +152,7 @@ const VolunteerContactInputs = () => {
         {volunteerPhotos.length > 0 ? (
           <Upload
             className="mt-2"
-            action=""
+            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
             listType="picture-circle"
             fileList={volunteerPhotos}
             onPreview={handleVolunteerPhoto}
@@ -193,7 +215,7 @@ const VolunteerContactInputs = () => {
           identityPhotos.length > 1 ? (
             <Upload
               className="mt-2"
-              action=""
+              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
               listType="picture-card"
               fileList={identityPhotos}
               onPreview={handleIdentityPhoto}
@@ -227,7 +249,7 @@ const VolunteerContactInputs = () => {
             {identityPhotos.length > 0 ? (
               <Upload
                 className="mt-2"
-                action=""
+                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                 listType="picture-card"
                 fileList={identityPhotos}
                 onPreview={handleIdentityPhoto}
@@ -277,8 +299,34 @@ const VolunteerContactInputs = () => {
         <label className="label">
           <span className="label-text text-lg">Other Documents</span>
         </label>
-        <input type="file" accept=".pdf, .jpg, .jpeg, .png" multiple className="input" />
+        <Upload
+          className="mt-2"
+          action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+          listType="picture-card"
+          fileList={documents}
+          onPreview={handleDocument}
+          onChange={handleDocumentChange}
+          maxCount={5}
+        >
+          {documents.length >= 5 ? null : <UploadButton buttonText="Upload" />}
+        </Upload>
+        <Modal
+          open={documentPreviewOpen}
+          title={documentPreviewTitle}
+          footer={null}
+          onCancel={handleDocumentCancel}
+        >
+          <img
+            className="border bg-green-400"
+            alt="example"
+            style={{
+              width: "100%",
+            }}
+            src={documentPreview}
+          />
+        </Modal>
       </div>
+
       <div className="form-control">
         <label className="label">
           <span className="label-text text-lg">Email</span>

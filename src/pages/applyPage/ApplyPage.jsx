@@ -76,27 +76,23 @@ const ApplyPage = () => {
                 {steps[current].content}
               </div>
 
-              <div
-                style={{
-                  marginTop: 24,
-                }}
-              >
+              <div className="flex items-center justify-between flex-wrap gap-6 mt-10">
+                {current > 0 && (
+                  <button className="btn btn-primary btn-sm" onClick={() => prev()}>
+                    Previous
+                  </button>
+                )}
                 {current < steps.length - 1 && (
-                  <button className="btn btn-primary btn-sm" onClick={(e) => next()}>
+                  <button className="btn btn-primary btn-sm ml-auto" onClick={(e) => next()}>
                     Next
                   </button>
                 )}
                 {current === steps.length - 1 && (
                   <button
-                    className="btn btn-primary btn-sm"
+                    className="btn btn-primary btn-sm ml-auto"
                     onClick={() => message.success("Processing complete!")}
                   >
                     Done
-                  </button>
-                )}
-                {current > 0 && (
-                  <button className="btn btn-primary btn-sm ml-4" onClick={() => prev()}>
-                    Previous
                   </button>
                 )}
               </div>
