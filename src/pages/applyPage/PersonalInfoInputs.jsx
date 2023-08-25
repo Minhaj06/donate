@@ -152,14 +152,13 @@ const PersonalInfoInputs = () => {
           className="input placeholder:text-gray-600"
         />
       </div>
-      <div className="form-control">
+      <div className="form-control col-span-3">
         <label className="label">
           <span className="label-text text-lg">Address</span>
         </label>
         <textarea
-          rows="3"
           placeholder="Enter your address"
-          className="input placeholder:text-gray-600"
+          className="textarea h-28 placeholder:text-gray-600"
         ></textarea>
       </div>
     </>

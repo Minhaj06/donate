@@ -205,7 +205,7 @@ const VolunteerContactInputs = () => {
             setNID(!NID);
             setIdentityPhotos([]);
           }}
-          className="input"
+          className="select"
         >
           <option value="nid">NID</option>
           <option value="birth">Birth Certificate</option>
@@ -341,21 +341,63 @@ const VolunteerContactInputs = () => {
         <label className="label">
           <span className="label-text text-lg">Telephone Number</span>
         </label>
-        <input
-          type="tel"
-          placeholder="(###) #### ###"
-          className="input placeholder:text-gray-600"
-        />
+        <div className="input-group">
+          <select className="select pr-0">
+            <option disabled selected>
+              Country Code
+            </option>
+            <option value="+61">+61 (Australia)</option>
+            <option value="+880">+880 (Bangladesh)</option>
+            <option value="+55">+55 (Brazil)</option>
+            <option value="+1">+1 (Canada)</option>
+            <option value="+86">+86 (China)</option>
+            <option value="+20">+20 (Egypt)</option>
+            <option value="+33">+33 (France)</option>
+            <option value="+49">+49 (Germany)</option>
+            <option value="+91">+91 (India)</option>
+            <option value="+39">+39 (Italy)</option>
+            <option value="+81">+81 (Japan)</option>
+            <option value="+92">+92 (Pakistan)</option>
+            <option value="+1">+1 (USA)</option>
+            <option value="+44">+44 (UK)</option>
+          </select>
+          <input
+            type="tel"
+            placeholder="(###) #### ###"
+            className="input placeholder:text-gray-600 w-full"
+          />
+        </div>
       </div>
       <div className="form-control">
         <label className="label">
           <span className="label-text text-lg">Contact Number</span>
         </label>
-        <input
-          type="tel"
-          placeholder="(###) #### ###"
-          className="input placeholder:text-gray-600"
-        />
+        <div className="input-group">
+          <select className="select pr-0">
+            <option disabled selected>
+              Country Code
+            </option>
+            <option value="+61">+61 (Australia)</option>
+            <option value="+880">+880 (Bangladesh)</option>
+            <option value="+55">+55 (Brazil)</option>
+            <option value="+1">+1 (Canada)</option>
+            <option value="+86">+86 (China)</option>
+            <option value="+20">+20 (Egypt)</option>
+            <option value="+33">+33 (France)</option>
+            <option value="+49">+49 (Germany)</option>
+            <option value="+91">+91 (India)</option>
+            <option value="+39">+39 (Italy)</option>
+            <option value="+81">+81 (Japan)</option>
+            <option value="+92">+92 (Pakistan)</option>
+            <option value="+1">+1 (USA)</option>
+            <option value="+44">+44 (UK)</option>
+          </select>
+          <input
+            type="tel"
+            placeholder="(###) #### ###"
+            className="input placeholder:text-gray-600 w-full"
+          />
+        </div>
       </div>
     </>
   );
