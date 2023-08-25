@@ -55,24 +55,24 @@ const ApplyPage = () => {
     <section className="py-20" style={sectionStyle}>
       <div style={overlayStyle}></div>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="flex items-center justify-between mb-16">
-          <h1 className="text-4xl font-bold font-noto text-gray-300">
+        <div className="flex items-center flex-wrap gap-4 justify-center sm:justify-between mb-16">
+          <h1 className="text-3xl sm:text-4xl font-bold font-noto text-center text-gray-300">
             {volunteerApply ? "Be a Volunteer!" : "Apply for Donation!"}
           </h1>
           <button
             onClick={() => setVolunteerApply(!volunteerApply)}
-            className="btn btn-primary"
+            className="btn btn-primary btn-sm sm:btn-md"
           >
             {volunteerApply ? "Apply for Donation" : "Be a Volunteer"}
           </button>
         </div>
 
         {/* <form> */}
-        <div className="p-8 bg-gray-200 rounded-xl">
+        <div className="p-5 py-8 sm:p-8 bg-gray-200 rounded-xl">
           {volunteerApply ? (
             <>
               <Steps current={current} items={items} />
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+              <div className="grid xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 gap-4 mt-6 ">
                 {steps[current].content}
               </div>
 
@@ -103,7 +103,6 @@ const ApplyPage = () => {
             </>
           )}
         </div>
-        {/* </form> */}
       </div>
     </section>
   );

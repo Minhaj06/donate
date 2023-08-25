@@ -152,7 +152,7 @@ const PersonalInfoInputs = () => {
           className="input placeholder:text-gray-600"
         />
       </div>
-      <div className="form-control col-span-3">
+      <div className="form-control lg:col-span-2 xl:col-span-3">
         <label className="label">
           <span className="label-text text-lg">Address</span>
         </label>
