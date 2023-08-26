@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { Modal, Upload } from "antd";
-import UploadButton from "./UploadButton";
+import UploadButton from "../UploadButton";
 import ImgCrop from "antd-img-crop";
 import {
   FaFacebook,
@@ -76,7 +76,7 @@ const PublicContactInputs = () => {
         <Upload
           className="mt-2"
           action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-          listType="picture-card"
+          listType="picture-circle"
           fileList={profilePhotos}
           onPreview={handleProfilePhoto}
           onChange={handleProfilePhotoChange}
@@ -105,8 +105,8 @@ const PublicContactInputs = () => {
           <span className="label-text text-lg">Contact Number</span>
         </label>
         <div className="input-group">
-          <select className="select pr-0">
-            <option disabled selected>
+          <select className="select pr-0" defaultValue="">
+            <option disabled value="">
               Country Code
             </option>
             <option value="+61">+61 (Australia)</option>
@@ -141,7 +141,7 @@ const PublicContactInputs = () => {
           className="input placeholder:text-gray-600"
         />
       </div>
-      <div className="form-control lg:col-span-2 xl:col-span-3">
+      <div className="form-control">
         <label className="label">
           <span className="label-text text-lg">Social Media Link</span>
         </label>
@@ -173,16 +173,18 @@ const PublicContactInputs = () => {
         </div>
         <div className="mt-4">
           {socialMedia.map((item, index) => (
-            <div key={index} className="flex items-center gap-3 text-lg mb-1">
-              <span className="text-2xl overflow-hidden">
+            <div key={index} className="flex items-center gap-3 mb-1">
+              <span className="text-xl overflow-hidden">
                 {socialMediaOptions.find((option) => option.value === item.platform).icon}
               </span>
-              <a href={item.link}>{item.link}</a>
+              <a href={item.link} target="_blank">
+                {item.link}
+              </a>
               <span
                 className="cursor-pointer text-red-600 hover:text-red-700 duration-200"
                 onClick={() => handleRemoveLink(index)}
               >
-                <FaTrash size={15} />
+                <FaTrash size={14} />
               </span>
             </div>
           ))}

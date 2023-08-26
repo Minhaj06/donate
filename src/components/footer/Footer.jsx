@@ -71,7 +71,7 @@ const Footer = () => {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 gap-y-10">
           <div className="sm:col-span-2 lg:col-span-2">
             <h3 className="text-xl font-noto font-bold mb-5">Head office of the company</h3>
-            <div className="grid grid-cols-2 gap-8">
+            <div className="grid sm:grid-cols-2 gap-8">
               <div>
                 <div className="flex gap-4 items-center mb-5">
                   <img className="w-16" src={USA} alt="USA" />

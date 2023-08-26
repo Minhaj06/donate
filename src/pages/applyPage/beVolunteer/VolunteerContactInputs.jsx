@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from "react";
 import { Modal, Upload } from "antd";
-import CaptureModal from "./CaptureModal";
-import CaptureButton from "./CaptureButton";
-import UploadButton from "./UploadButton";
+import CaptureModal from "../CaptureModal";
+import CaptureButton from "../CaptureButton";
+import UploadButton from "../UploadButton";
 
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
@@ -206,6 +206,7 @@ const VolunteerContactInputs = () => {
             setIdentityPhotos([]);
           }}
           className="select"
+          defaultValue="nid"
         >
           <option value="nid">NID</option>
           <option value="birth">Birth Certificate</option>
@@ -342,8 +343,8 @@ const VolunteerContactInputs = () => {
           <span className="label-text text-lg">Telephone Number</span>
         </label>
         <div className="input-group">
-          <select className="select pr-0">
-            <option disabled selected>
+          <select className="select pr-0" defaultValue="">
+            <option disabled value="">
               Country Code
             </option>
             <option value="+61">+61 (Australia)</option>
@@ -373,8 +374,8 @@ const VolunteerContactInputs = () => {
           <span className="label-text text-lg">Contact Number</span>
         </label>
         <div className="input-group">
-          <select className="select pr-0">
-            <option disabled selected>
+          <select className="select pr-0" defaultValue="">
+            <option disabled value="">
               Country Code
             </option>
             <option value="+61">+61 (Australia)</option>
