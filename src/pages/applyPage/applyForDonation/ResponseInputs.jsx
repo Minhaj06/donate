@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Modal, Upload } from "antd";
 import CaptureModal from "../CaptureModal";
 import CaptureButton from "../CaptureButton";
@@ -13,6 +13,12 @@ const getBase64 = (file) =>
   });
 
 const ResponseInputs = () => {
+  const [donationCategory, setDonationCategory] = useState("medical");
+
+  useEffect(() => {
+    console.log(donationCategory);
+  }, [donationCategory]);
+
   // Webcam Capture States
   const [webcamModalOpen, setWebcamModalOpen] = useState(false);
   const [capturedWebcamImage, setCapturedWebcamImage] = useState("");
@@ -170,7 +176,7 @@ const ResponseInputs = () => {
         <label className="label">
           <span className="label-text text-lg">What are the types of grants?</span>
         </label>
-        <select className="select">
+        <select className="select" onChange={(e) => setDonationCategory(e.target.value)}>
           <option value="medical">Medical</option>
           <option value="education">Education</option>
           <option value="employment">Employment</option>
@@ -232,6 +238,149 @@ const ResponseInputs = () => {
               width: "100%",
             }}
             src={applicantPreviewImage}
+          />
+        </Modal>
+      </div>
+      <div className="form-control">
+        <label className="label">
+          <span className="label-text text-lg">Photo of NID or Birth Certificate</span>
+        </label>
+        <select
+          onChange={() => {
+            setNID(!NID);
+            setIdentityPhotos([]);
+          }}
+          className="select"
+          defaultValue="nid"
+        >
+          <option value="nid">NID</option>
+          <option value="birth">Birth Certificate</option>
+        </select>
+
+        {NID ? (
+          identityPhotos.length > 1 ? (
+            <Upload
+              className="mt-2"
+              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+              listType="picture-card"
+              fileList={identityPhotos}
+              onPreview={handleIdentityPhoto}
+              onChange={handleIdentityPhotoChange}
+              maxCount={2}
+            >
+              {identityPhotos.length >= 2 ? null : (
+                <UploadButton
+                  buttonText={identityPhotos.length <= 0 ? "NID front" : "NID back"}
+                />
+              )}
+            </Upload>
+          ) : (
+            <>
+              <CaptureButton
+                buttonText={identityPhotos.length <= 0 ? "NID front" : "NID back"}
+                handleModal={() => handleWebcamModalOpen("identity")}
+              />
+              {currentContext === "identity" && (
+                <CaptureModal
+                  modalState={webcamModalOpen}
+                  handleModalOpen={() => handleWebcamModalOpen("")}
+                  captureState={captureWebcamPhoto}
+                  photoSize={{ width: 640, height: 480 }}
+                />
+              )}
+            </>
+          )
+        ) : (
+          <>
+            {identityPhotos.length > 0 ? (
+              <Upload
+                className="mt-2"
+                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                listType="picture-card"
+                fileList={identityPhotos}
+                onPreview={handleIdentityPhoto}
+                onChange={handleIdentityPhotoChange}
+                maxCount={2}
+              >
+                {identityPhotos.length >= 1 ? null : (
+                  <UploadButton buttonText="Birth Certificate" />
+                )}
+              </Upload>
+            ) : (
+              <>
+                <CaptureButton
+                  buttonText="Birth Certificate"
+                  handleModal={() => handleWebcamModalOpen("identity")}
+                />
+                {currentContext === "identity" && (
+                  <CaptureModal
+                    modalState={webcamModalOpen}
+                    handleModalOpen={() => handleWebcamModalOpen("")}
+                    captureState={captureWebcamPhoto}
+                    photoSize={{ width: 413, height: 531 }}
+                  />
+                )}
+              </>
+            )}
+          </>
+        )}
+        <Modal
+          open={identityPhotoPreviewOpen}
+          title={identityPhotoPreviewTitle}
+          footer={null}
+          onCancel={handleIdentityPhotoCancel}
+        >
+          <img
+            className="border bg-green-400"
+            alt="example"
+            style={{
+              width: "100%",
+            }}
+            src={identityPreviewImage}
+          />
+        </Modal>
+      </div>
+
+      {/*  */}
+
+      {donationCategory === "medical" && (
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text text-lg">City council's sick certificate</span>
+          </label>
+        </div>
+      )}
+
+      {/*  */}
+
+      <div className="form-control">
+        <label className="label">
+          <span className="label-text text-lg">Other Documents</span>
+        </label>
+        <Upload
+          className="mt-2"
+          action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+          listType="picture-card"
+          fileList={documents}
+          onPreview={handleDocument}
+          onChange={handleDocumentChange}
+          maxCount={5}
+        >
+          {documents.length >= 5 ? null : <UploadButton buttonText="Upload" />}
+        </Upload>
+        <Modal
+          open={documentPreviewOpen}
+          title={documentPreviewTitle}
+          footer={null}
+          onCancel={handleDocumentCancel}
+        >
+          <img
+            className="border bg-green-400"
+            alt="example"
+            style={{
+              width: "100%",
+            }}
+            src={documentPreview}
           />
         </Modal>
       </div>
