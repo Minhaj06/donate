@@ -73,8 +73,8 @@ const TypeOfGrant = () => {
         <SectionTitle title="Type of grant" />
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-8 text-center">
-          {grantTypeData.map((item) => (
-            <div>
+          {grantTypeData.map((item, index) => (
+            <div key={index}>
               <div className="flex justify-center p-4">
                 <span className="bg-gray-200 p-6 text-primary text-5xl xl:text-6xl rounded-full">
                   {item?.icon}

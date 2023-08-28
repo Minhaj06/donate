@@ -15,10 +15,6 @@ const getBase64 = (file) =>
 const ResponseInputs = () => {
   const [donationCategory, setDonationCategory] = useState("medical");
 
-  useEffect(() => {
-    console.log(donationCategory);
-  }, [donationCategory]);
-
   // Webcam Capture States
   const [webcamModalOpen, setWebcamModalOpen] = useState(false);
   const [capturedWebcamImage, setCapturedWebcamImage] = useState("");
@@ -341,21 +337,242 @@ const ResponseInputs = () => {
         </Modal>
       </div>
 
-      {/*  */}
-
       {donationCategory === "medical" && (
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text text-lg">City council's sick certificate</span>
-          </label>
-        </div>
+        <>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text text-lg">
+                Written Certificate from Local City Council
+              </span>
+            </label>
+            <input className="input" type="file" />
+          </div>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text text-lg">Medical Report and Prescription</span>
+            </label>
+            <input className="input" type="file" accept=".pdf" />
+          </div>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text text-lg">Picture of a Sick Person</span>
+            </label>
+            <input className="input" type="file" accept=".jpg, .jpeg, .png, .webp" />
+          </div>
+        </>
       )}
-
-      {/*  */}
+      {donationCategory === "education" && (
+        <>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text text-lg">Institution Head's Permission Letter</span>
+            </label>
+            <input className="input" type="file" />
+          </div>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text text-lg">Institution Head's Permission Letter</span>
+            </label>
+            <input className="input" type="file" accept=".jpg, .jpeg, .png, .webp" />
+          </div>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text text-lg">Student test results</span>
+            </label>
+            <input className="input" type="file" accept=".jpg, .jpeg, .png, .webp, .pdf" />
+          </div>
+        </>
+      )}
+      {donationCategory === "employment" && (
+        <>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text text-lg">Name of Employment</span>
+            </label>
+            <input className="input" type="text" placeholder="Enter name of employment" />
+          </div>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text text-lg">
+                Written Certificate from Local City Council
+              </span>
+            </label>
+            <input className="input" type="file" />
+          </div>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text text-lg">Employment Picture</span>
+            </label>
+            <input className="input" type="file" accept=".jpg, .jpeg, .png, .webp" />
+          </div>
+        </>
+      )}
+      {donationCategory === "physical disability" && (
+        <>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text text-lg">
+                Written Certificate or Disability Card
+              </span>
+            </label>
+            <input className="input" type="file" />
+          </div>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text text-lg">Photo of Physically Challenged Person</span>
+            </label>
+            <input className="input" type="file" accept=".jpg, .jpeg, .png, .webp" />
+          </div>
+        </>
+      )}
+      {donationCategory === "religious institutions" && (
+        <>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text text-lg">Certificate Issued by the Committee</span>
+            </label>
+            <input className="input" type="file" />
+          </div>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text text-lg">Name of the Institution</span>
+            </label>
+            <input className="input" type="text" placeholder="Enter name of institution" />
+          </div>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text text-lg">Full Address of Religious Institution</span>
+            </label>
+            <input className="input" type="text" placeholder="Enter full address" />
+          </div>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text text-lg">Images of Religious Institutions</span>
+            </label>
+            <input className="input" type="file" accept=".jpg, .jpeg, .png, .webp" multiple />
+          </div>
+        </>
+      )}
+      {donationCategory === "orphanage" && (
+        <>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text text-lg">Name of Institution</span>
+            </label>
+            <input className="input" type="text" placeholder="Enter name of institution" />
+          </div>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text text-lg">Address of the Place</span>
+            </label>
+            <input className="input" type="text" placeholder="Enter address" />
+          </div>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text text-lg">Photo of Incomplete Work</span>
+            </label>
+            <input className="input" type="file" accept=".jpg, .jpeg, .png, .webp" />
+          </div>
+        </>
+      )}
+      {donationCategory === "natural disaster" && (
+        <>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text text-lg">
+                Written Certificate from Local City Council
+              </span>
+            </label>
+            <input className="input" type="file" />
+          </div>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text text-lg">Some Photos of Disaster Damage</span>
+            </label>
+            <input className="input" type="file" accept=".jpg, .jpeg, .png, .webp" multiple />
+          </div>
+        </>
+      )}
+      {donationCategory === "developmental work" && (
+        <>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text text-lg">
+                Written Certificate from Local City Council
+              </span>
+            </label>
+            <input className="input" type="file" />
+          </div>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text text-lg">Image of Developmental Work</span>
+            </label>
+            <input className="input" type="file" accept=".jpg, .jpeg, .png, .webp" />
+          </div>
+        </>
+      )}
+      {donationCategory === "sports" && (
+        <>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text text-lg">
+                Send Written Certificate from Local City Council
+              </span>
+            </label>
+            <input className="input" type="file" />
+          </div>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text text-lg">Picture of Sports Venue</span>
+            </label>
+            <input className="input" type="file" accept=".jpg, .jpeg, .png, .webp" />
+          </div>
+        </>
+      )}
+      {donationCategory === "animals" && (
+        <>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text text-lg">
+                City Council's Sick Animal Certificate
+              </span>
+            </label>
+            <input className="input" type="file" />
+          </div>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text text-lg">Pictures of Sick Animals</span>
+            </label>
+            <input className="input" type="file" accept=".jpg, .jpeg, .png, .webp" multiple />
+          </div>
+        </>
+      )}
+      {donationCategory === "others" && (
+        <>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text text-lg">City Council Certificate</span>
+            </label>
+            <input className="input" type="file" />
+          </div>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text text-lg">Image of the Main Problem</span>
+            </label>
+            <input className="input" type="file" accept=".jpg, .jpeg, .png, .webp" />
+          </div>
+        </>
+      )}
 
       <div className="form-control">
         <label className="label">
-          <span className="label-text text-lg">Other Documents</span>
+          <span className="label-text text-lg">Live Video Response</span>
+        </label>
+        <input className="input" type="file" accept="video/*" />
+      </div>
+      <div className="form-control">
+        <label className="label">
+          <span className="label-text text-lg">Other documents</span>
         </label>
         <Upload
           className="mt-2"

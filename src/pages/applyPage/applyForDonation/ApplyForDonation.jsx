@@ -2,19 +2,25 @@ import React, { useState } from "react";
 import { message, Steps } from "antd";
 import PersonalInfoInputs from "./PersonalInfoInputs";
 import ResponseInputs from "./ResponseInputs";
+import WithdrawalAmount from "./WithdrawalAmount";
+import ContactInfoInputs from "./ContactInfoInputs";
 
 const steps = [
-  {
-    title: "Response presentation",
-    content: <ResponseInputs />,
-  },
   {
     title: "Applicant personal info",
     content: <PersonalInfoInputs />,
   },
   {
+    title: "Response presentation",
+    content: <ResponseInputs />,
+  },
+  {
+    title: "Contact info",
+    content: <ContactInfoInputs />,
+  },
+  {
     title: "Amount & withdrawal process",
-    content: <h1 className="text-6xl">Withdrawal</h1>,
+    content: <WithdrawalAmount />,
   },
 ];
 
@@ -38,7 +44,7 @@ const ApplyForDonation = () => {
         {steps[current].content}
       </div>
 
-      <div className="flex items-center justify-between flex-wrap gap-6 mt-10">
+      <div className="flex items-center justify-between flex-wrap gap-6 mt-4">
         {current > 0 && (
           <button className="btn btn-primary btn-sm" onClick={() => prev()}>
             Previous
